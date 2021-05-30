@@ -1,0 +1,23 @@
+{
+    "name": "piece-of-kake/sql-migrations",
+    "description": "An OO SQL migration tool with versioning",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sasa Andjelic",
+            "email": "sasasmail@gmail.com"
+        }
+    ],
+    "require": {
+        "piece-of-kake/sql-query-builder": "^1.0",
+        "php": ">=7.1",
+        "piece-of-kake/exception": "^1.1",
+        "piece-of-kake/value-object": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PoK\\Migrations\\": "src/"
+        }
+    }
+}
