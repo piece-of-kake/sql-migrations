@@ -1,6 +1,6 @@
 <?php
 
-namespace PoK\Migrations\Exceptions;
+namespace PoK\Migrations\Exception;
 
 use PoK\Exception\HasDataInterface;
 use PoK\Exception\ServerError\InternalServerErrorException;

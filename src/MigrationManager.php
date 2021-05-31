@@ -9,7 +9,7 @@ use PoK\SQLQueryBuilder\Queries\Delete;
 use PoK\SQLQueryBuilder\Queries\TableExists;
 use PoK\SQLQueryBuilder\Queries\CreateTable;
 use PoK\SQLQueryBuilder\Queries\Select;
-use PoK\Migrations\Exceptions\FailedMigrationException;
+use PoK\Migrations\Exception\FailedMigrationException;
 use PoK\ValueObject\Collection;
 use PoK\SQLQueryBuilder\Queries\Insert;
 use PoK\ValueObject\TypePositiveInteger;
@@ -94,7 +94,7 @@ class MigrationManager
                 }
             });
 
-        return [$succeded, $batch];
+        return [$succeded, new TypePositiveInteger($batch)];
     }
 
     private function revertLastBatch()
@@ -136,7 +136,7 @@ class MigrationManager
                 }
             });
 
-        return [$succeded, $batch];
+        return [$succeded, new TypePositiveInteger($batch)];
     }
 
     private function excludeExecutedMigrationFiles(Collection $migrationFiles, Collection $executedMigrations)
