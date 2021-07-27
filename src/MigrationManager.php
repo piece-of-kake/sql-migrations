@@ -57,9 +57,9 @@ class MigrationManager
     private function createMigrationsTable()
     {
         $query = (new CreateTable('migrations'))
-            ->fields(function(CreateTable $table) {
-                $table->field('migration')->string()->size(255)->notNull();
-                $table->field('batch')->tinyInt()->notNull();
+            ->columns(function(CreateTable $table) {
+                $table->column('migration')->string()->size(255)->notNull();
+                $table->column('batch')->tinyInt()->notNull();
             });
         $this->client->execute($query);
     }
@@ -81,14 +81,14 @@ class MigrationManager
                 try {
                     require_once $fileName;
                     $className = $this->getMigrationClassNameFromFileName($fileName);
-                    $succeded[] = $className;
                     $migration = new $className($this->client);
                     $migration->commit();
                     $this->client->execute(
                         (new Insert('migrations'))
-                            ->fields('migration', 'batch')
+                            ->columns('migration', 'batch')
                             ->addValueRow(basename($fileName, '.php'), $batch)
                     );
+                    $succeded[] = $className;
                 } catch (\Throwable $exception) {
                     throw new FailedMigrationException($succeded, new TypeString($fileName), new TypePositiveInteger($batch), $exception);
                 }
@@ -115,7 +115,6 @@ class MigrationManager
                 try {
                     require_once $fileName;
                     $className = $this->getMigrationClassNameFromFileName($fileName);
-                    $succeded[] = $className;
                     $migration = new $className($this->client);
                     $migration->rollback();
                     $this->client->execute(
@@ -131,6 +130,7 @@ class MigrationManager
                                 )
                             ))
                     );
+                    $succeded[] = $className;
                 } catch (\Throwable $exception) {
                     throw new FailedMigrationException($succeded, new TypeString($fileName), new TypePositiveInteger($batch), $exception);
                 }
