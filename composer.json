@@ -10,10 +10,10 @@
         }
     ],
     "require": {
-        "piece-of-kake/sql-query-builder": "^1.0",
+        "piece-of-kake/sql-query-builder": "dev-main",
         "php": ">=7.1",
-        "piece-of-kake/exception": "^1.1",
-        "piece-of-kake/value-object": "^1.0"
+        "piece-of-kake/exception": "dev-main",
+        "piece-of-kake/value-object": "dev-main"
     },
     "autoload": {
         "psr-4": {
